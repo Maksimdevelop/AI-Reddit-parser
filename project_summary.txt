@@ -1,0 +1,1335 @@
+
+================================================================================
+FILE: .gitignore
+================================================================================
+
+.venv/
+venv/
+
+__pycache__/
+.env
+
+================================================================================
+FILE: main.py
+================================================================================
+
+from AI.ai import GetApi
+from AI.gigachat_api import GigaChatAPI
+from reddit_archive_api import reddit_archive
+import json
+
+messages = [{
+        "role": "system",
+        "content": "Ты — поисковый ИИ агент с доступом к архивам реддит. Твоя задача - \
+        используя оптимальное количество токенов и ресурсов компьютера дать достаточный\
+        и исчерпывающий ответ на вопрос пользователя."
+    },
+    {
+        "role": "user",
+        "content": "Что на реддите думают о... кошкодевочках?"
+    }
+]
+
+payload = {
+    "model": "GigaChat-2-Max",
+    "messages": [
+        *messages
+    ],
+    "function_call": "auto",
+    "functions":[
+        reddit_archive.r_get_submissions_schema,
+        reddit_archive.r_get_comments_schema,
+        reddit_archive.r_get_thread_comments_schema
+    ]
+}
+
+# api = GigaChatAPI()
+# messages.append(api.Message(payload).choices[0].message)
+args = {
+    'diary_reasoning': 'Поиск постов на реддите, связанных с "кошкодевочками", чтобы понять, какие мнения и обсуждения существуют на эту тему.',
+    'q': 'кошкодевочки'
+}
+# print(messages[-1].function_call.arguments)
+print(json.dumps(reddit_archive.RGetSubmissions(**args), indent=4, ensure_ascii=False))
+
+================================================================================
+FILE: reddit_comments.json
+================================================================================
+
+[
+    {
+        "body": "Python勢ではあるけどこれはredditのplaceholder書いただけ",
+        "link_id": "t3_1kqahf4",
+        "id": "mt46bdy",
+        "parent_id": "t1_mt42zuh",
+        "subreddit": "lowlevelaware",
+        "score": 1,
+        "author": "tsukusi"
+    },
+    {
+        "body": "research analyst equity analyst are the popular ones in nism you can also learn financial modelling python for finance, etc.",
+        "link_id": "t3_1kqal1f",
+        "id": "mt46954",
+        "parent_id": "t1_mt44trw",
+        "subreddit": "CFA",
+        "score": 2,
+        "author": "shimo2903"
+    },
+    {
+        "body": "u/Kind-Antelope-9634 have you worked with H3 before? I've never worked with H3 before, but what you said doesn't seem to pass the smell test.\n\n[https://h3geo.org/#hex=8009fffffffffff](https://h3geo.org/#hex=8009fffffffffff)\n\nThe above website is from the official H3 website run/funded by Uber. I utilized their h3-py binding library for Python and utilized the get\\_pentagons function at resolution level zero and it spit out 12 hexagon \"coordinates\", one of which is the one I linked above.\n\nWhen I input the lat/long coordinates for Oslo (which is visually within the above linked pentagon), it returns the same pentagon (8009fffffffffff).\n\nI didn't give the h3-py library any lat/lon coordinates to establish a starting hexagon for calculating other hexagons in my first test run so how could it possibly match unless by sheer random chance if it's generated programmatically?\n\nLike I said, I've never worked with H3 before so I'll defer to your mastery if you have it, but I can't reconcile what you're saying (it's generated programmatically) with what I'm reading from multiple sources (coordinates are static)",
+        "link_id": "t3_1kq2fc6",
+        "id": "mt468g0",
+        "parent_id": "t1_mt2rllo",
+        "subreddit": "gis",
+        "score": 1,
+        "author": "HelloWorldMisericord"
+    },
+    {
+        "body": "You're right, the old Python course is way out of date. Khan Academy really needs to update that. Python has become such an essential language, especially for data analysis and automation.",
+        "link_id": "t3_1ko9vn5",
+        "id": "mt45wm8",
+        "parent_id": "t3_1ko9vn5",
+        "subreddit": "Khan",
+        "score": 1,
+        "author": "python_with_dr_johns"
+    },
+    {
+        "body": "I know this is a 2 year old post, but I just wanted to mention that \"Monty Python and the Holy Grail\", \"Hot Shots\" and \"Scary Movie 1, 2, 3 and 4\" are all movies with this type of humour!",
+        "link_id": "t3_17ujxyz",
+        "id": "mt45mm1",
+        "parent_id": "t3_17ujxyz",
+        "subreddit": "movies",
+        "score": 2,
+        "author": "CelesteJA"
+    },
+    {
+        "body": "What LLM do you use? I havent found a computer that knows everything yet, only a python token generator working in CUDA",
+        "link_id": "t3_1kq7p5w",
+        "id": "mt45lku",
+        "parent_id": "t1_mt3i5nh",
+        "subreddit": "ChatGPT",
+        "score": 1,
+        "author": "Tararais1"
+    },
+    {
+        "body": "I did... i have a master degree in computer science. And a lot of experience in DevOps and particularly Python. Yet its so hard to find a better paid job....\n\nI would love a more stable part time job to make more extra cash, i would be happy with 3k a month after tax. Currently totalling 2.4k a month after tax",
+        "link_id": "t3_1kq87sq",
+        "id": "mt45h6i",
+        "parent_id": "t1_mt44bjd",
+        "subreddit": "AskUK",
+        "score": 4,
+        "author": "travelavatar"
+    },
+    {
+        "body": "Uh sorry man. If you’d put DeepSeek, Python (for ML) and R, I’d still be disqualified.",
+        "link_id": "t3_1kq3u4z",
+        "id": "mt45a79",
+        "parent_id": "t3_1kq3u4z",
+        "subreddit": "Xennials",
+        "score": 1,
+        "author": "gjloh26"
+    },
+    {
+        "body": "Am I reading this chart correctly and the test for xlsxwriter has been done on python 2.7 ?\n\nIf so why ?",
+        "link_id": "t3_1kq0cvs",
+        "id": "mt4535j",
+        "parent_id": "t1_mt2b2ya",
+        "subreddit": "Python",
+        "score": 3,
+        "author": "throwawayforwork_86"
+    },
+    {
+        "body": "I did install YAML and used pip install requirements. It was kind of a saga to get there for a newb like me. In the end its a Python version mismatch. I installed an older version of python and it stopped erroring about yaml, and instead it looks for python in the Program Files ( I hadn't installed for all users) and I don't know why it looks there. I tried installing there and it loops back to this. I'm going to run through the steps /again/ and see if I can find what I missed or incorrectly did.",
+        "link_id": "t3_1kpm25b",
+        "id": "mt44z4n",
+        "parent_id": "t1_mt40inc",
+        "subreddit": "comfyui",
+        "score": 3,
+        "author": "errantpursuits"
+    },
+    {
+        "body": "Can you share a screenshot of the scene or a sketch?\n\nSome fluids and light in some patterns can produce different patterns, sometimes a polarizing filter can be helpful. Some fluids \"absorb\" and \"respond\" to light differently.\n\nCan the vessel and level of water in it seen well (or the fluid is colored)? If there is quite a visual difference (contrast) then it could maybe just be adressed with \"classic\" computer vision.\n\nShape/contour approximation?  \nLike:  \n\\- [https://pyimagesearch.com/2016/02/08/opencv-shape-detection/](https://pyimagesearch.com/2016/02/08/opencv-shape-detection/)  \n\\- [https://learnopencv.com/contour-detection-using-opencv-python-c/](https://learnopencv.com/contour-detection-using-opencv-python-c/)",
+        "link_id": "t3_1kq8wso",
+        "id": "mt44yzg",
+        "parent_id": "t3_1kq8wso",
+        "subreddit": "computervision",
+        "score": 1,
+        "author": "herocoding"
+    },
+    {
+        "body": "Having a function return out of a non-error branch is often considered a lot-so-great practice. Code is more maintainable if it follows a branch to its logical conclusion. (It’s essentially a “goto.”) Assuming this is python it also doesn’t give typing hints, nor any comment as to its purpose, assumptions, or the meaning of its return code. And how might you add error checking to prevent fizzbuzz(“hello”)?\n\nAnyway, (besides a small typo) your code works, but these are the sort of discussions you can have in an interview even over a small, useless little coding exercise. However, since this code doesn’t loop, you can’t have conversations about run time, and since it doesn’t store anything, you can’t discuss data storage. Other classic little problems like Fibonacci or “determine if a linked list loops” are often marginally better if you’re going to take this interview tactic.",
+        "link_id": "t3_1kpt503",
+        "id": "mt44vvf",
+        "parent_id": "t1_mt3bf5b",
+        "subreddit": "NoStupidQuestions",
+        "score": 0,
+        "author": "rpsls"
+    },
+    {
+        "body": "I personally use it as a super intuitive backend to my web apps. I use webhooks as triggers, and the frontend of the app simply sends data to these webhooks and n8n handles the processing and returns the result.\n\nExample: I have a project where users can enter an ICAO code for an airbase. This is then sent to n8n which then looks in my database for cached information about that specific airbase. If there is nothing stored, it calls an API to get said info. The info is used with the second API to get weather information from the airbase. The results are then sent back and also inserted into the database I mentioned.\n\nI do sign-up, login and whatever the user may read and write to the database this way.\n\nI used to program backends in javascript, python and whatnot, but this is much easier to create, maintain and make changes to. Both because of its design and availability.",
+        "link_id": "t3_1kq9s2s",
+        "id": "mt44r4v",
+        "parent_id": "t3_1kq9s2s",
+        "subreddit": "n8n",
+        "score": 3,
+        "author": "lhhar"
+    },
+    {
+        "body": "I have a low threshold of complication where once exceeded the script is written in Python instead. If the script is just executing a few commands in series, is easily explainable via LLM, is less than say like 20-30 lines, then bash is OK. Essentially a similar rule to the level of complication of a single function. Beyond that I want people to more easily understand it (including me) so I switch to Python even if it's more verbose.",
+        "link_id": "t3_1kp23fy",
+        "id": "mt44lyo",
+        "parent_id": "t1_msupd4e",
+        "subreddit": "ProgrammerHumor",
+        "score": 1,
+        "author": "Xicutioner-4768"
+    },
+    {
+        "body": "The jungle bite python was also 50$ on dmarket the last time I checked so I guess its the same situation",
+        "link_id": "t3_1kq7yb6",
+        "id": "mt44ln4",
+        "parent_id": "t1_mt43gy8",
+        "subreddit": "playrust",
+        "score": 2,
+        "author": "Dry-Recognition2038"
+    },
+    {
+        "body": "Bits ke baad cs 50x and cs50 python karne ka socha hai phir comp programming ki python handbook ke topic wise qs solve karunga leetcode par starting with easy",
+        "link_id": "t3_1kqambo",
+        "id": "mt44fn2",
+        "parent_id": "t1_mt444d3",
+        "subreddit": "Btechtards",
+        "score": 0,
+        "author": "IamSickOfWakingUp"
+    },
+    {
+        "body": "Functional programming. They're function objects, not methods. In Python this would be implicit. In a Javalike like C# it's gruesome.",
+        "link_id": "t3_1kqaqbd",
+        "id": "mt44e8w",
+        "parent_id": "t1_mt43519",
+        "subreddit": "programminghorror",
+        "score": 3,
+        "author": "UnluckyDouble"
+    },
+    {
+        "body": "Are you writing in python or something and using AI?? Like how do you not understand. \n\nGo learn c++ and code some projects by hand. That'll show ya how shit works. \n\nThe people I know who don't know what they're doing are just tabbing through colab... dont do that.",
+        "link_id": "t3_1knt412",
+        "id": "mt448xk",
+        "parent_id": "t3_1knt412",
+        "subreddit": "AskProgrammers",
+        "score": 1,
+        "author": "LifeisWeird11"
+    },
+    {
+        "body": "The main difference here between Python and GDScript is not that `None` is a singleton, but that `is` is an instance check in GDScript and an identity check in Python.\n\nIn Python `str(\"x\") is str == false`, while in GDScript `1 is 1 == false`. (Or throws an error, not exactly sure, can't check right now).",
+        "link_id": "t3_1kphge6",
+        "id": "mt446mk",
+        "parent_id": "t1_msyydaa",
+        "subreddit": "godot",
+        "score": 1,
+        "author": "Square-Singer"
+    },
+    {
+        "body": "I wrote a small, much simpler tool that simply pings a list of hosts and sends an email as soon as one is unavailable.\n\nConfigurable via a small web interface.\n\nAll you need is Python (I have it running on my Synology Diskstation or Proxmox).\n\n[https://github.com/hehljo/PingPatrol](https://github.com/hehljo/PingPatrol)",
+        "link_id": "t3_16e8sz5",
+        "id": "mt441qo",
+        "parent_id": "t3_16e8sz5",
+        "subreddit": "selfhosted",
+        "score": 1,
+        "author": "Top_Spirit2527"
+    },
+    {
+        "body": "Literally Monty python bridge keeper",
+        "link_id": "t3_1kcjwlv",
+        "id": "mt43xoo",
+        "parent_id": "t1_mq3bwge",
+        "subreddit": "whowouldcirclejerk",
+        "score": 2,
+        "author": "HootToot47"
+    },
+    {
+        "body": "holy hell i can't code for shit (i only know a bit of python) you're doing a really great job don't underestimate yourself",
+        "link_id": "t3_1konla1",
+        "id": "mt43prf",
+        "parent_id": "t1_mt43gzw",
+        "subreddit": "humanornotfindme",
+        "score": 1,
+        "author": "After_Grand5773"
+    },
+    {
+        "body": "Don't fight the progression of technology tools, adapt. This is what we are good at. Consider this tool a better/worst automated bootstrap to your next application build. My funny (self chuckle) interpretation, more-fluff-in-the-stuff. C --> C++ --> Java --> SpringFramework --> Spring Boot --> AI Framework. Another pattern, C --> C++ --> Java --> Scala --> Spark, etc. Caution, use at your own risk. Don't get hung up on Java, I could have picked other divergent paths, c#, php, python, javascript, etc. Just my 2 cents. Thank you.",
+        "link_id": "t3_1kq9338",
+        "id": "mt43n7w",
+        "parent_id": "t3_1kq9338",
+        "subreddit": "theprimeagen",
+        "score": 6,
+        "author": "jhernandez9274"
+    },
+    {
+        "body": "Hi there! I've tried both methods and I found feeding in the tank is better because you'll lower the chances of regurge. A snake wants to be left alone when eating because they're most vulnerable and whether they trust you, there's always a risk.\n\nSubstrate will just be pooped out and isn't an issue for most snakes. Depending on the substrate will depend if it will cause issues. Hatchlings I've noticed are a higher risk at impaction (which is the main reason people worry with substrate ingestion) so first few meals need paper towels misted in a corner that raises humidity. But juveniles, sub adults and adults will just poop out the substrate since it isn't digested and as long as it's organic substrate, you're good. \n\nDon't worry too much. Snakes are hardy, especially ball pythons, and little bits of substrate getting eaten won't do any harm. If you're worried, break apart the substrate so it is finer. No issues!",
+        "link_id": "t3_1kq2zbs",
+        "id": "mt43jae",
+        "parent_id": "t3_1kq2zbs",
+        "subreddit": "Ballpythoncommunity",
+        "score": 1,
+        "author": "Painting-Training"
+    },
+    {
+        "body": "Steve Irwin was the first. Next Robbin Williams,\nthen Neil Peart from Rush, and Terry Jones of Monty Python pretty close to each other",
+        "link_id": "t3_1kq2bbn",
+        "id": "mt43jaf",
+        "parent_id": "t3_1kq2bbn",
+        "subreddit": "AskReddit",
+        "score": 2,
+        "author": "Shroomasaurus_rex"
+    },
+    {
+        "body": "Has the python and aztec door gone too?\n\nI don't see them listed",
+        "link_id": "t3_1kq7yb6",
+        "id": "mt43gy8",
+        "parent_id": "t3_1kq7yb6",
+        "subreddit": "playrust",
+        "score": 10,
+        "author": "Pepsimax88"
+    },
+    {
+        "body": "I wrote a small, much simpler tool that simply pings a list of hosts and sends an email as soon as one is unavailable.\n\nConfigurable via a small web interface.\n\nAll you need is Python (I have it running on my Synology Diskstation or Proxmox).\n\n  \n[https://github.com/hehljo/PingPatrol](https://github.com/hehljo/PingPatrol)",
+        "link_id": "t3_1btkh2n",
+        "id": "mt437o0",
+        "parent_id": "t3_1btkh2n",
+        "subreddit": "selfhosted",
+        "score": 1,
+        "author": "Top_Spirit2527"
+    },
+    {
+        "body": "Oh that's a good shout!\n\nI'm going to test having a Python library do the conversion to see if that changes the memory requirements. It sounded like from what I read that it's a Linux memory management issue rather than an R one though. So if the Python or native Linux function isn't any more efficient at the read + convert process, it sounds like the memory impact will remain the same?",
+        "link_id": "t3_1kmjea5",
+        "id": "mt437gd",
+        "parent_id": "t1_mshn052",
+        "subreddit": "Rlanguage",
+        "score": 1,
+        "author": "dub_orx"
+    },
+    {
+        "body": "Flip a coin...\n\nMy personal preference would be Python because it is a general language. Plus all of the cool companies are using Machine Learning--and I'm a data junkie so that topic is of interest to me.\n\nI have little interest in mechanical engineering and don't care that MATLAB is a proprietary language/environment.",
+        "link_id": "t3_1kpmehw",
+        "id": "mt42xjn",
+        "parent_id": "t1_mt2wlby",
+        "subreddit": "learnprogramming",
+        "score": 2,
+        "author": "RightWingVeganUS"
+    },
+    {
+        "body": "The M1A or the 6” Python.",
+        "link_id": "t3_1kq2i5p",
+        "id": "mt42wzz",
+        "parent_id": "t3_1kq2i5p",
+        "subreddit": "Firearms",
+        "score": 1,
+        "author": "bartonkj"
+    },
+    {
+        "body": "Self study.. for basics i am just following free websites like freecodecamp, CS50 yt videos. I am learning python btw. Since you are interested in Android app development.. i don't know whether Python is the most preferred language . You might have to learn kotlin and java for that..",
+        "link_id": "t3_1ko3q9r",
+        "id": "mt42leo",
+        "parent_id": "t1_mt41fso",
+        "subreddit": "CharteredAccountants",
+        "score": 1,
+        "author": "Imaginary-Jump-1094"
+    },
+    {
+        "body": "Funny, was just trying to get this working for new installs so I'm in a similar boat.   \nAfter installing Python, it immediately uninstalls it. I tweaked version number to match as well.\n\n    The install of Python finished without errors, but instead of version 3.13.3150.0, the following product changes were detected: \n    Python 3.13 (64-bit) 3.13.3150.0 (NT AUTHORITY\\SYSTEM) installed. \n    Please verify the version number and display name match parameters in the package settings.\n\n\n\nSilent install switches I'm trying to use:\n\n    /quiet InstallAllUsers=1 PrependPath=1 InstallLauncherAllUsers=1 Include_launcher=1\n\nFollowing.",
+        "link_id": "t3_1ko38fl",
+        "id": "mt42jtt",
+        "parent_id": "t3_1ko38fl",
+        "subreddit": "Action1",
+        "score": 1,
+        "author": "cfr101020"
+    },
+    {
+        "body": "Of the two I've only used Flask, and only for smaller personal projects.\nI like it, as it does what I want from Python - it gives me minimal overhead and lets me quickly spin up a prototype of an idea.\nIf you want a relatively quick and simple way to build an API (backend), Flask is not a bad option.",
+        "link_id": "t3_1kq5zh8",
+        "id": "mt42jvt",
+        "parent_id": "t3_1kq5zh8",
+        "subreddit": "learnprogramming",
+        "score": 2,
+        "author": "Print_and_send"
+    },
+    {
+        "body": "1. There are many things you didn't take into consideration (like relocations which can get pretty complicated pretty fast, linking with other libraries, executable starting point, etc)\n\n2. And some things that are just wrong. For example, usually Python is interpreted and thus an executable isn't generated. Also, limiting the arch support for only a custom VM arch is a bit dumb - especially when (I assume) you don't have any compiler that compiles to it...  \n  \nComing up with a new executable format gets complicated too quickly.\n\nYou need to write a loader, you need to have compilers and linkers support it, you will probably want a dynamic linker to support it as well, etc. Arguably, it's even more complex and tedious than writing a hobby kernel from scratch because of all of different components that need to interact with it.\n\nYou don't know what you're talking about. I'm not saying this to discourage you, just placing a mirror in front of you. \n\nGo learn how the execution process works before trying to design your own one. Try writing an ELF loader or a minimal custom libc",
+        "link_id": "t3_1kq9tkl",
+        "id": "mt42gh9",
+        "parent_id": "t3_1kq9tkl",
+        "subreddit": "osdev",
+        "score": 18,
+        "author": "Visual-Context-8570"
+    },
+    {
+        "body": "I have never seen a regex formatted like this in my life.\n\non the other hand, I have seen plenty of commented python code. it's also easier to step through python with a debugger and inspect intermediate results.",
+        "link_id": "t3_1kpo9ri",
+        "id": "mt42fo7",
+        "parent_id": "t1_mt28f1h",
+        "subreddit": "learnprogramming",
+        "score": 1,
+        "author": "maigpy"
+    },
+    {
+        "body": "I had a lot of data analysis experience in college. I volunteered in research labs running R, python, etc and used that experience to bolster my resume. Then applied to everything after college",
+        "link_id": "t3_1hhuluv",
+        "id": "mt42a05",
+        "parent_id": "t1_mscfbh0",
+        "subreddit": "blackladies",
+        "score": 2,
+        "author": "Evening_Entrance_472"
+    },
+    {
+        "body": "I don't disagree with most of this except:\n\n\n- Strong vs dynamicis is an age old debate that has lots arguments each way. Each has its use depending on the type of project and team size. Arguing that any backend shouldn't use dynamic typing dismisses python, ruby, PHP.... Silly.\n\n\n- Lack of standard library: Bun and Deno support WebAPI out of the box. With built in crypto and http client you can write a lot of stuff without dependencies.",
+        "link_id": "t3_1kph8b2",
+        "id": "mt41wi8",
+        "parent_id": "t1_msxs3og",
+        "subreddit": "webdev",
+        "score": 1,
+        "author": "GenXDad507"
+    },
+    {
+        "body": "Yeah I don't get it either. Of course you're not gonna get it to one shot an entire customized data pipeline from scratch perfectly without errors with a one sentence prompt, but even the dumbest low parameter model will consistently give you the correct answer to \"write Python code to open 'folder/file.csv' as dataframe 'df' with the first row as the header\" and stuff like that faster than you can find someone even asking that question on stack overflow",
+        "link_id": "t3_1kpm7yv",
+        "id": "mt41mxw",
+        "parent_id": "t1_mt1615u",
+        "subreddit": "dataengineering",
+        "score": 1,
+        "author": "snmnky9490"
+    },
+    {
+        "body": "Loved Python as a kid and still laugh at some of it.  Some of it might not seem funny anymore because we know it so well.",
+        "link_id": "t3_1kq5z3q",
+        "id": "mt41ix5",
+        "parent_id": "t1_mt3vzb8",
+        "subreddit": "GenerationJones",
+        "score": 8,
+        "author": "seaword9"
+    },
+    {
+        "body": "i just use a python script to display that while playing, got annoying remembering the max tier and what can roll on an item",
+        "link_id": "t3_1kpocy7",
+        "id": "mt41de5",
+        "parent_id": "t1_mt0ngdu",
+        "subreddit": "PathOfExile2",
+        "score": 3,
+        "author": "HopeCompetitive507"
+    },
+    {
+        "body": "pYtHoN iS JusT ImPoRT *",
+        "link_id": "t3_1kq78je",
+        "id": "mt4144e",
+        "parent_id": "t1_mt3o733",
+        "subreddit": "ProgrammerHumor",
+        "score": 1,
+        "author": "Rovsnegl"
+    },
+    {
+        "body": "The next bit is a bit of python code that reddit won't let me post in one go so here it is broken up&gt;&gt;\n\n\n\n\n\nimport pandas as pd  \nimport matplotlib.pyplot as plt  \nimport matplotlib.patches as mpatches  \nfrom datetime import date  \nfrom matplotlib.colors import to\\_rgb  \n  \n\\# ──────────────────────────────  \n\\# 1.  Load and clean the data  \n\\# ──────────────────────────────  \npeople = xl(\"F3#\", headers=True)        # swap for tblPeople\\[#All\\] if you prefer a table  \n  \npeople = people.dropna(subset=\\[\"Name\", \"Birth\"\\])                       # strip blank rows  \npeople\\[\"Birth\"\\] = pd.to\\_datetime(people\\[\"Birth\"\\], errors=\"coerce\")  \npeople\\[\"Death\"\\] = pd.to\\_datetime(people\\[\"Death\"\\], errors=\"coerce\")  \npeople = people.dropna(subset=\\[\"Birth\"\\])                               # must have a birth date  \npeople\\[\"Death\"\\] = people\\[\"Death\"\\].fillna(pd.Timestamp(date.today()))   # still alive → today  \n  \npeople\\[\"Start\"\\] = people\\[\"Birth\"\\].dt.year.astype(int)  \npeople\\[\"End\"\\]   = people\\[\"Death\"\\].dt.year.astype(int)  \npeople\\[\"Span\"\\]  = people\\[\"End\"\\] - people\\[\"Start\"\\]",
+        "link_id": "t3_1kq7qjm",
+        "id": "mt40xs1",
+        "parent_id": "t1_mt40duc",
+        "subreddit": "excel",
+        "score": 1,
+        "author": "UniqueUser3692"
+    },
+    {
+        "body": "Bro in other languages except python indentation doesn't matter",
+        "link_id": "t3_1kqa0t1",
+        "id": "mt40tn1",
+        "parent_id": "t1_mt3y1jq",
+        "subreddit": "Btechtards",
+        "score": 1,
+        "author": "EpikHerolol"
+    },
+    {
+        "body": "> Saber usar Pandas não é grandes coisas e não é mandatorio pra todo mundo que usa python, o lance é que é um negocio simples o suficiente que qualquer coisa você so precisa olhar a documentação.\n\nOlha, eu até concordaria no geral, mas a questão aqui é\n\nQuem nunca nem ouviu falar de Pandas e quer se vender como conhecedor de Python e Eng/Cientista de Dados, o \"suspeitômetro\" aumenta",
+        "link_id": "t3_1kpt7du",
+        "id": "mt40siy",
+        "parent_id": "t1_mt3mxfq",
+        "subreddit": "brdev",
+        "score": 6,
+        "author": "Motolancia"
+    },
+    {
+        "body": "You\nCan create a SQlite with python to store data",
+        "link_id": "t3_1kpve2r",
+        "id": "mt40r1e",
+        "parent_id": "t3_1kpve2r",
+        "subreddit": "CodingHelp",
+        "score": 1,
+        "author": "420_spartan"
+    },
+    {
+        "body": "Sure.\n\n    # lsof -np 6183 |grep rand\n    hass    6183 hass  mem       REG                8,6    68920 347101 /opt/python/lib/python3.13/lib-dynload/_random.cpython-313-x86_64-linux-gnu.so\n    hass    6183 hass   21r      CHR                1,9      0t0      9 /dev/urandom",
+        "link_id": "t3_1kq2vuy",
+        "id": "mt40nsx",
+        "parent_id": "t1_mt3xuyz",
+        "subreddit": "homeassistant",
+        "score": 1,
+        "author": "kornerz"
+    },
+    {
+        "body": "Well this might be written in Python vs. ADA /s",
+        "link_id": "t3_1kq8k4t",
+        "id": "mt40lzg",
+        "parent_id": "t1_mt3mx9g",
+        "subreddit": "politics",
+        "score": 5,
+        "author": "invalidreddit"
+    },
+    {
+        "body": "Dude, I can do meaningful work in the languages I cited. I could contribute to a team using those languages. That’s baseline proficiency, not expertise. And if your university is not getting you there in Java, C, C++, and Python after 4 years, then something is wrong",
+        "link_id": "t3_1kpcsfw",
+        "id": "mt40lt5",
+        "parent_id": "t1_mszzwxg",
+        "subreddit": "csMajors",
+        "score": 1,
+        "author": "ReadTheTextBook2"
+    },
+    {
+        "body": "Naked Gun 1-3\n\nMonthy Python and the Holy Grail\n\nRat Race",
+        "link_id": "t3_1kq9mhc",
+        "id": "mt40kra",
+        "parent_id": "t3_1kq9mhc",
+        "subreddit": "MovieSuggestions",
+        "score": 1,
+        "author": "CountingSheep99"
+    },
+    {
+        "body": "Thank you so much for your reply! I am trying to realign myself into that career path and I am wondering if my late start will have a huge impact. Nonetheless, based on my experience with Python and SQL, focusing on trying to get a data-scientist job will be my best bet right?",
+        "link_id": "t3_1kol1rd",
+        "id": "mt40j63",
+        "parent_id": "t1_mstxjgj",
+        "subreddit": "OMSCS",
+        "score": 1,
+        "author": "JustPomPom"
+    },
+    {
+        "body": "ok, here's your starter:  \n  \nyour data is in columns A &gt; D and your headers are \\[Name, Birth, Death, Category\\]  \nyou have a dropdown in G1 that is a list of all your categories (this is just to show you how)  \nyou have this formula in F3\n\n`=VSTACK(A1:D1,FILTER($A$2:$D$101,$D$2:$D$101=$G$1))`\n\nyou have this formula as a Python In Excel formula in H1",
+        "link_id": "t3_1kq7qjm",
+        "id": "mt40duc",
+        "parent_id": "t3_1kq7qjm",
+        "subreddit": "excel",
+        "score": 1,
+        "author": "UniqueUser3692"
+    },
+    {
+        "body": "If it’s automating an update to cleaning new data then I prefer using Python files and modules. Python main.py is just easier to run",
+        "link_id": "t3_1ko8ngz",
+        "id": "mt40dh5",
+        "parent_id": "t3_1ko8ngz",
+        "subreddit": "datascience",
+        "score": 1,
+        "author": "varwave"
+    },
+    {
+        "body": "They give the python can mac not use?",
+        "link_id": "t3_1kq0ovh",
+        "id": "mt40cfa",
+        "parent_id": "t1_mt2ojf6",
+        "subreddit": "mangadex",
+        "score": 1,
+        "author": "Solax636"
+    },
+    {
+        "body": "The security dude in the mubaan collected the pythons, gave him a couple of hundred baht. Was happy to get the cobras for free tho, said he could get ฿1500 for the skin",
+        "link_id": "t3_1kpx7uq",
+        "id": "mt4082u",
+        "parent_id": "t1_mt3ue8f",
+        "subreddit": "Thailand",
+        "score": 3,
+        "author": "ksamwa"
+    },
+    {
+        "body": "First question, do you know any languages? I always recommend Python, SQL, and R at a minumum. Some Java will help, as pyspark is built on it. While not a programming language, bash is super useful, so if you have a computer you can boot Linux on that is a great way to learn. As someone else said Snowflake is an absolute mush, we use it, as well as the s3 architecture and maybe Athena (Amazon's SQL database, it specifically is Presto SQL).\n\nWith the amount of experience you have, you would be able to get in as a data analyst, which usually will hire someone with a bachelor's. You already have the experience that if you got hired as an analyst, you could probably convince them to promote you in a few years to a data scientist. \n\nWhen I got hired, I had I think 6 machine learning projects all of which were not out of a learning module (i.e. I made up my own projects).",
+        "link_id": "t3_1kpx08y",
+        "id": "mt405ro",
+        "parent_id": "t1_mt3ttmz",
+        "subreddit": "AskMen",
+        "score": 1,
+        "author": "GreatKingCodyGaming"
+    },
+    {
+        "body": "Cara, infelizmente vida de estagiário é complicada, eu quando comecei a estagiar anos atrás era até que relativamente fácil conseguir entrevistas, já ser escolhido era um pouco mais complicado, mas depois que você pega a primeira experiência a coisa parece que anda, a impressão que tive ao longo dos anos foi que a forma que você saiu da empresa anterior conta muito, se você foi demitido, pega muito mal, se você saiu por volta de própria, dependendo do motivo, também pode pegar mal, mas geralmente se você dizer que foi por crescimento pessoal e novas oportunidades de carreira, pelo menos a quase dez anos atrás essa desculpa colava kkkk, eu pelo menos até hoje tive a sorte de nunca ser demitido por razões pessoais, minha única demissão foi na pandemia, onde toda a fábrica da Siemens que eu trabalhava em canoas foi demitida e venderam a fábrica, e mesmo assim tive que escutar de um recrutador que que se eu tivesse me esforçado mais a Siemens podia ter me realocado pra outra localização, o bom foi que não cheguei a ficar 4 dias desempregado antes de conseguir outra vaga, naquela época o mercado tava muito bom, tinha vaga a rodo, meu primeiro estágio entrei sem saber absolutamente nada, trabalhei que nem um cachorro, mas aprendi muito. Acho que escrevi um texto muito grande e acabei perdendo o foco, mas te aconselho a focar em tecnologias que tem alta demanda, por exemplo, aqui na Alemanha tem mta vaga Python e Java, maioria das vagas Python é voltada pra IA, ando vendo que aí no Brasil tá indo pra esse caminho, pega uns cursos da udemy pra te atualizar.",
+        "link_id": "t3_1kq9o9n",
+        "id": "mt3zsfw",
+        "parent_id": "t3_1kq9o9n",
+        "subreddit": "brdev",
+        "score": 10,
+        "author": "WelliMD"
+    },
+    {
+        "body": "There is a huge difference in the coding skills required to write low latency trading software in C++/assembler vs the average Javascript or Python dev job. Most developers could do the latter, few can do the former.",
+        "link_id": "t3_1kpt503",
+        "id": "mt3zp5n",
+        "parent_id": "t1_mt21h9y",
+        "subreddit": "NoStupidQuestions",
+        "score": 2,
+        "author": "Conscious-Secret-775"
+    },
+    {
+        "body": "Biggus Dickus is from a *very* well-known Monty Python bit, so not impossible.",
+        "link_id": "t3_1kpr4d4",
+        "id": "mt3zhp2",
+        "parent_id": "t1_mt2teto",
+        "subreddit": "AskReddit",
+        "score": 3,
+        "author": "kooshipuff"
+    },
+    {
+        "body": "Start looking into yc and startup stuff in general! Try a bunch of differnt hard things or really examine what the fuck you find annoying when you are coding reselling cooking literally anything go network and see if it’s worth building then just build fuck the vanilla js nodejs python start using frameworks and ai to build 10x faster. Worrying about super clean code will only fuck you at the start just find a problem thay you are passionate or even mildly passionate about and just build it",
+        "link_id": "t3_1kq9295",
+        "id": "mt3zgoy",
+        "parent_id": "t3_1kq9295",
+        "subreddit": "SaaS",
+        "score": 1,
+        "author": "Routine_Dig_7921"
+    },
+    {
+        "body": "Colt Python, LWRC, and 1897 are the top choices for me.",
+        "link_id": "t3_1kq2i5p",
+        "id": "mt3zf40",
+        "parent_id": "t3_1kq2i5p",
+        "subreddit": "Firearms",
+        "score": 1,
+        "author": "dankvader192"
+    },
+    {
+        "body": "Hey, I can understand you might be creating your resume for the first time and you are unsure about what details to put and stuff. It happens. Follow the below Instructions wisely it will surely help.\n\nResume should have mandatory sections in the following order.  \nSummary -> Skills -> Experiences -> Projects(If Any) -> Certifications(If Any) -> Achievements(If Any) -> Education.\n\nIf you are a student the just shift the Education after your Summary.\n\n**Summary Section:**  \nIt should be of 2-4 lines in a paragraph format, make sure it contains YoE, Role you are looking for and Primary Skills.\n\n**Skill Section:**  \nGroup all your Skills and add a common label. Example given below.\n\n**Experience Section and Projects:**  \nWrite it in bullet points starting with a strong verb, 6-8 points in the recent experience and 5-6 in previous experiences.\n\n**Certification and Achievements:**  \nAdd in bullets if you have any.\n\n**Education:**  \nAdd Education which are relevant, for e.g. Bachelors/Masters Do not add School Details.\n\n  \n**Looking for Some Templates in Word to Download or a Resume Builder for free. Check out** [**Jobbie.io**](https://Jobbie.io)  \n\n\n>Skills Section Example:   \n**Programming Languages**: Python, HTML, CSS, Java, SQL.\n\n>**Database & Tool**: FitNesse, Jira, HP ALM, Postman, SOAP UI, REST, REST API, JMeter, Cypress, Playwright, Selenium, Git, GitHub, CI/CD\n\n>**Testing & Quality Assurance:** Manual Testing, Automation Testing, Black Box Testing, API Integration, End to End Testing, Application Testing, UAT, Regression Testing, Functional Testing, Sanity Testing, System Integration Testing (SIT), Smoke Testing, Performance Testing, API Testing, Root Cause Analysis.\n\n>**Test Management & Reporting**: Test Plan Preparation, Test Strategy Worksheet (TSW), Test Estimates, Test Deliverables Version Control, Test Report Submission, Test Case Review, Test Case Design.\n\n>**Software Development & Testing Lifecycle:** SDLC, STLC, Bug Life Cycle, Agile Methodology, Waterfall Model.\n\n>**Collaboration & Communication:** Requirement Analysis, Coordination with BAs, Developers, and Project Managers, Requirement Gathering Sessions, Mentoring & Knowledge Transfer (KT), Stakeholder Reporting, Daily Standup Management.\n\n>**Soft Skills**: Problem Solving, Team Collaboration, Leadership, Attention to Detail, Effective Communication.\n\nHope this helps!!!",
+        "link_id": "t3_1kq73fx",
+        "id": "mt3zcoc",
+        "parent_id": "t3_1kq73fx",
+        "subreddit": "QualityAssurance",
+        "score": -1,
+        "author": "ZestycloseWater5742"
+    },
+    {
+        "body": "Thanks for the feedback! I'll try to post some videos, but it's more a \"setup problem\" currently, I only have my phone to record, and it's not the easiest task to connect things, tweak buttons at the same time. I'll see how I can accomodate and show multiple small examples.\n\n  \nThe setup part is ok, I mean, currently you have to know how to install a Python library, but that's pretty much it. The web-UI could be already deployed somewhere at a specific URL and you would just need to enter the \"backend\" URL. I think I can provide an installer for non unix-based machine. The installation on the raspberry pi is manual at the moment and is a little bit more complicated indeed (e.g: the rpi boots and tries to connect to a known network, but if it doesn't find any, it jumps in access point mode so you can connect with a phone/computer/tablet to it and use it right away). As it's still in early stage development, I didn't provide facilities for quick installation on a rpi-based device. \n\nIntegrating a new piece of hardware is quite easy though, you have to edit/create a YAML configuration file, and Nallely integrates a code generator that generates the Python API required to include your device in the system. The code generation also work if you feed it CSV files from [https://midi.guide/](https://midi.guide/), which helps to bootstrap this step. I know line between pure use and use + code is quite thin, as it's also a system made for experimentation and live-coding, so in the UI, the border between both might be fuzzy.\n\n  \nRegarding the signals, at the moment, I didn't run into any problem, but perhaps it's due to the MIDI devices I'm using? I tested and use a Korg NTS-1, a Korg Minilogue as synth (that's all I have), and as controllers, an Akai MP32, and Arturia Minilab2 and Minilab3. From the first tests I conducted, the NTS-1 showed some stress signs when I sent over 500KHz MIDI messages with a virtual LFO and it was really messy over 1MHz. However, I'm not sure that 500KHz or 1MHz  could be qualifed as LFO. I ran into crunchy sounds when I start to have multiple sources for the same output running at the same time, for example, multiples LFOs at different frequencies and with different shapes controlling the exact same parameter of a MIDI device.\n\nFor MIDI devices, the MIDI message is transmitted to the connected modules when the message arrives, while when a time-based virtual device is used, it relies on a sampling rate that is modulated depending on the frenquency of the virtual device. Virtual devices emit values only if the new produced value is different from the previous one, this limits also the number of messages that are really sent. Currently, for example, considering a random LFO with a speed of 10Hz, it would have a sampling rate of 500 (computing the new value 500 ticks by seconds), but would send only 10 messages has the value of the LFO would actually change 10 times per seconds. For a sine wave, 10Hz for a sampling rate of 500, the number of messages sent would be < to 500 messages by seconds. The only exception is with some virtual devices parameters that are explicitally identified as \"stream\" which asks for a value of the source at each tick (so a 10Hz LFO, 500 sampling rate would generate 500 values per seconds for this virtual device)",
+        "link_id": "t3_1kpz3zh",
+        "id": "mt3z46r",
+        "parent_id": "t1_mt2nafb",
+        "subreddit": "synthesizers",
+        "score": 1,
+        "author": "drschlange"
+    },
+    {
+        "body": "Yep. For example when introducing python theorem, easy layups on making connections. But when introducing trig portion of geometry, we just gotta do the work for a few days. Where it come from (I don’t have 3000 yrs to breakdown this proof I barely understand) and prior knowledge model doesn’t play a role as much . \nHonestly, Sometimes the lessons are “trust me bro” . After we do a bunch of , they see the computer answers (kahoot etc), tensions ease and ready to move on at that point.",
+        "link_id": "t3_1kq049l",
+        "id": "mt3yxfg",
+        "parent_id": "t3_1kq049l",
+        "subreddit": "Teachers",
+        "score": 1,
+        "author": "FluffyPreparation150"
+    },
+    {
+        "body": "Just my 2 cents:\n\nIn regards to languages, just be comfortable enough with one language to solve all kinds of problems. To be comfortable in that language, start using it to solve DSA questions. \n\nAlso, be comfortable in one OOP language and another multi-paradigm language. So for your case, C++ and Python will do.\n\nFor DSAs, my advice is to pick Python because it's the easiest way to learn DSAs without worrying about the complexity of the language. When it comes to interviews, they will allow you to pick the language you are comfortable with. And Python will always be there as an option.\n\nIt's possible you just didn't like the web dev course by Harry. So try out another learning material. Or if nothing works, then it just means you don't like web dev.",
+        "link_id": "t3_1kq975w",
+        "id": "mt3yxfh",
+        "parent_id": "t3_1kq975w",
+        "subreddit": "learnprogramming",
+        "score": 1,
+        "author": "Classymuch"
+    },
+    {
+        "body": "I have a ball python that’s currently 17 years old with the potential for 30+ 😂. But she’s not nearly as demanding as a fuzzy pet.",
+        "link_id": "t3_1kppw6n",
+        "id": "mt3ysuo",
+        "parent_id": "t1_mt3skei",
+        "subreddit": "animalsdoingstuff",
+        "score": 2,
+        "author": "PhoenixCryStudio"
+    },
+    {
+        "body": "If I'm not mistaken, only with wine or box32, but try to see, sometimes the community creates python scripts for the same",
+        "link_id": "t3_1kpcpfc",
+        "id": "mt3ynie",
+        "parent_id": "t1_mt3y2b3",
+        "subreddit": "termux",
+        "score": 1,
+        "author": "luanw04"
+    },
+    {
+        "body": "Yes, there is a quote that says \"the definition of insanity is doing the same thing and expecting a different result.\" This was iterating on someone else's similar post made earlier that day so I didn't think about it that hard.\nThe function would have no real use in python",
+        "link_id": "t3_1koq3ij",
+        "id": "mt3yjcr",
+        "parent_id": "t1_mt3xe2k",
+        "subreddit": "ProgrammerHumor",
+        "score": 2,
+        "author": "RealKindStranger"
+    },
+    {
+        "body": "ehh looks too complicated you can do the same with python with just print and input statement, and I believe python is used more widely",
+        "link_id": "t3_1kq1x76",
+        "id": "mt3yiyp",
+        "parent_id": "t1_mt3fmya",
+        "subreddit": "AlexandriaEgy",
+        "score": 1,
+        "author": "Hollow033"
+    },
+    {
+        "body": "I only know Python at a scripting level and already hold a PT job, but I'm still very interested 👀",
+        "link_id": "t3_1kq8hq3",
+        "id": "mt3yitn",
+        "parent_id": "t1_mt3wbsb",
+        "subreddit": "cscareerquestions",
+        "score": -2,
+        "author": "chic_luke"
+    },
+    {
+        "body": "I'm doing ```python mangadex.py```, and using the new Windows Terminal.\n\nNo idea the reason it works for you but not for me...",
+        "link_id": "t3_1kq664i",
+        "id": "mt3yh8j",
+        "parent_id": "t1_mt3xywp",
+        "subreddit": "mangadex",
+        "score": 2,
+        "author": "kami_sama"
+    },
+    {
+        "body": "Two years ago, I was doing graphic design. I loved creating brand identities, visuals, and telling stories through design. Then I started using AI to generate assets, textures, materials—just using AI to be creative and have fun.\n\nI started having real conversations with my AIs—not just asking for answers, but working with AI. I used them to help with my weak spots, not by bypassing them, but by building support systems that helped me grow. Like a PKMS and working on the MCP.  Having An AI to help if I have a question is super useful for finding stuff out but I used it to build this system that allows me to work at a massive scale. And now I can do things I couldn't ever do before and making these things is not only very fulfilling\n\nInstead of getting stuck, I'd ask, and we would co-create a solution. I’d learn as I went, guided by curiosity, intuition, and desire to improve my life.\n\nA lot of conversations later… I’m now writing Python scripts, building algorithms, designing symbolic languages, and co-creating full-on AR operating systems with my AI partners.\n\nHow?\n\nI’m not just learning—I’m making.  \nCreating while striving to make something better. That’s the kind of mindset we should be teaching. It wasn’t studying—it was learning interactively. My brain naturally made connections as we build.\n\nThis is what happens when you give a curious mind unfiltered access to intelligent tools. This is what we need to inspire.  Another mindset is when things break use it as an opportunity to improve the old design by asking questions to the AI and doing some detective work to figure it out. \n\nBut I think our education needs to change even more... In the future, what we need to teach the next generation: not just content or code, but how to be more human in an automated world.\n\nAlso I think the future of education should be looking at how the shift in employment will effect jobs with more automation. Its an opportunity for us to do LESS by having our robot friends help us. In the years to come we want to have human and AI teachers that can do the things I mentioned above but we will have other involved in teaching Empathy. Emotional awareness. Creativity. Systems thinking. Self-reflection.\n\nI’d even propose a system where people can reconnect with themselves—improve their well-being, mindset, and learn how to feel joy again.\n\nIt's my hope that the concept of AI being a co-creator/guide will catch on soon.",
+        "link_id": "t3_1kq7vj2",
+        "id": "mt3yfym",
+        "parent_id": "t3_1kq7vj2",
+        "subreddit": "ArtificialInteligence",
+        "score": 0,
+        "author": "According-Tank6793"
+    },
+    {
+        "body": "Yesterday, I was trying to search for a very specific thing, but google's page 1 didn't have it...\n\nSince I've only used Python for a couple months, I screwed up the type checking in my game, and only yesterday did I realize how to turn pylance on (don't laugh, you've done dumb shit too).\n\nDuring the refactor, I couldn't figure out how to cast a thing, so I gave up and asked ChatGPT: https://chatgpt.com/share/682b1fcf-d970-800e-9bf8-e7546e0a6f1b\n\nI didn't know the `typing` library had the `cast` function, though it's obvious in retrospect, seeing the bot show that meant I could google the *actual* docs for that function to see how it works.\n\nSo yeah, I guess this counts as \"using AI to code\" in the broadest sense of the word - and I doubt I'll ever do more than this.\n\n/rant",
+        "link_id": "t3_1kp3mz7",
+        "id": "mt3yfpm",
+        "parent_id": "t1_msyen4t",
+        "subreddit": "programminghumor",
+        "score": 1,
+        "author": "Ratstail91"
+    },
+    {
+        "body": "Bhai this ain't python",
+        "link_id": "t3_1kqa0t1",
+        "id": "mt3ydnq",
+        "parent_id": "t1_mt3xnv3",
+        "subreddit": "Btechtards",
+        "score": 3,
+        "author": "Arpan_Bhar"
+    },
+    {
+        "body": "I like to think of the whole computing field as an ETL pipeline, from the high level programming languages all the way down to the transistors. The languages are just a neat abstraction to enable you to do complex data manipulation and DSA is the most efficient ways we know on how to store and process said data by efficiently using the underlying hardware. \n\nThat said to find a placement you’d ideally want to know ahead of time as to which industry you are interested in as all of them try to solve different issues and have different tooling to do so. \nI would also like to add that code is just a tool and your job primarily isn’t to write code but to be able to digest business requirements/problems and then turn them into solutions using software and hardware which makes knowing and understanding your industry of choice paramount.\n\nFor broad understanding I would highly recommend grounding your knowledge in lower level language like C/C++ (great for understanding the foundations of software) and a higher level language like python(useful for speed of delivery) as with this base you would be able to quickly and easily pick up any other language as needed.\n\nAll languages also have their own specific abstractions to make a specific problem easier like frameworks and libraries which is in itself is a rabbit hole, some devs only specialise in these for example, react, Django, Spring Boot, .Net core and so on.\n\nHere’s what stacks you’ll most likely find on the market:\nWeb dev Corporate = C#/Java, will stay like this for a long time due to how deeply embedded these ecosystems are in big corporations.\n\nWeb dev Startup = python/node.js, free and stable with immense community support great for quick development cycles and MVP builds\n\nSystems = C/C++ as most of the time you’d be working closer to hardware or require a lot of performance\n\nDevOps = shell and scripting, python YAML\n\nData = python/R and SQL",
+        "link_id": "t3_1kq975w",
+        "id": "mt3ybpc",
+        "parent_id": "t3_1kq975w",
+        "subreddit": "learnprogramming",
+        "score": 1,
+        "author": "modelcroissant"
+    },
+    {
+        "body": "I have long since graduated, but it's a great program if you want a career in geomatics. By that I mean working at a company like ESRI or working in municipal, provincial, or federal government. \n\nI'm not sure why they push geomatics as an alternative to CS so hard. Maybe because back in the day it was the only programs with a foundation in python.  \n  \nIf you are using geomatics to get into CS, I'd look elsewhere! If you want to do geomatics, than its wonderful.",
+        "link_id": "t3_1kq0zm3",
+        "id": "mt3y9y3",
+        "parent_id": "t3_1kq0zm3",
+        "subreddit": "uwaterloo",
+        "score": 4,
+        "author": "just_be123"
+    },
+    {
+        "body": "Yes. They'll learn C. They just start with Python in CS.",
+        "link_id": "t3_1kpjsqh",
+        "id": "mt3y6h1",
+        "parent_id": "t1_mt3ie79",
+        "subreddit": "linuxquestions",
+        "score": 1,
+        "author": "meagainpansy"
+    },
+    {
+        "body": "Hey this is an old post. I was able to get everything working with pure python 😆",
+        "link_id": "t3_18ypfhl",
+        "id": "mt3y4iu",
+        "parent_id": "t1_mt3gyou",
+        "subreddit": "PLC",
+        "score": 1,
+        "author": "SlowEstablishment628"
+    },
+    {
+        "body": "Bro it is not python",
+        "link_id": "t3_1kqa0t1",
+        "id": "mt3y46s",
+        "parent_id": "t1_mt3xnv3",
+        "subreddit": "Btechtards",
+        "score": 3,
+        "author": "ThoriumxD"
+    },
+    {
+        "body": "> I'm running it on PS, but I don't think it matters\n\nThat's bizarre, I'm trying to reproduce it and it works on my computer: <https://files.catbox.moe/1uk2ng.png>\n\nAre you running the script (i.e. `python mangadex.py`) or the code itself? Are you using Windows Terminal or the old Windows PowerShell prompt?\n\nHowever to be safe I changed how the URL is built.\n\n> And for avoiding interpolation, when initializing configparser, use this line:\n\nI'll have a look, thanks.",
+        "link_id": "t3_1kq664i",
+        "id": "mt3xywp",
+        "parent_id": "t1_mt3t3hy",
+        "subreddit": "mangadex",
+        "score": 2,
+        "author": "JungianWarlock"
+    },
+    {
+        "body": "Similar to the Everglades with pythons... They say wild small mammals are down 97%. In South  Florida... The only thing different here is you can't just trap and spray gel on a python. They also breed like crazy with no natural predators....",
+        "link_id": "t3_1kq2qx1",
+        "id": "mt3xpat",
+        "parent_id": "t1_mt3g4d9",
+        "subreddit": "todayilearned",
+        "score": 2,
+        "author": "tankspikefayebebop"
+    }
+]
+
+================================================================================
+FILE: requirements.txt
+================================================================================
+
+annotated-types==0.8.0
+anyio==4.14.2
+beautifulsoup4==4.15.0
+certifi==2026.7.22
+charset-normalizer==3.4.9
+dotenv==0.9.9
+gigachat==0.2.1
+h11==0.16.0
+httpcore==1.0.9
+httpx==0.28.1
+idna==3.18
+pydantic==2.13.4
+pydantic-settings==2.14.2
+pydantic_core==2.46.4
+python-dotenv==1.2.2
+requests==2.34.2
+soupsieve==2.9.1
+typing-inspection==0.4.2
+typing_extensions==4.16.0
+urllib3==2.7.0
+
+
+================================================================================
+FILE: system_prompt.txt
+================================================================================
+
+
+
+================================================================================
+FILE: walker.py
+================================================================================
+
+import os
+from pathlib import Path
+
+# Имя итогового текстового файла
+OUTPUT_FILE = "project_summary.txt"
+
+# Папки, которые нужно проигнорировать
+IGNORE_DIRS = {".venv", ".git", "__pycache__", "node_modules", ".idea", ".vscode"}
+
+# Расширения файлов, которые стоит пропустить (картинки, архивы, бинарники)
+IGNORE_EXTS = {".pyc", ".png", ".jpg", ".jpeg", ".gif", ".ico", ".pdf", ".zip", ".tar", ".gz", ".db", ".sqlite3"}
+
+
+def collect_project_files(root_dir: str = "."):
+    root_path = Path(root_dir).resolve()
+
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as outfile:
+        # Walk обходит директории вглубь (DFS по умолчанию)
+        for root, dirs, files in os.walk(root_path):
+            # Модифицируем dirs "на лету", чтобы os.walk не заходил в игнорируемые папки
+            dirs[:] = [d for d in dirs if d not in IGNORE_DIRS and not d.startswith(".")]
+
+            for file in sorted(files):
+                file_path = Path(root) / file
+
+                # Пропускаем сам итоговый файл и нетекстовые расширения
+                if file_path.name == OUTPUT_FILE or file_path.suffix.lower() in IGNORE_EXTS:
+                    continue
+
+                # Относительный путь для красивого заголовка
+                rel_path = file_path.relative_to(root_path)
+
+                try:
+                    with open(file_path, "r", encoding="utf-8", errors="ignore") as infile:
+                        content = infile.read()
+
+                    # Записываем разделитель и имя файла
+                    outfile.write(f"\n{'=' * 80}\n")
+                    outfile.write(f"FILE: {rel_path}\n")
+                    outfile.write(f"{'=' * 80}\n\n")
+                    outfile.write(content)
+                    outfile.write("\n")
+
+                    print(f"Добавлен: {rel_path}")
+
+                except Exception as e:
+                    print(f"Ошибка при чтении {rel_path}: {e}")
+
+
+if __name__ == "__main__":
+    collect_project_files()
+    print(f"\nГотово! Весь проект собран в файл: {OUTPUT_FILE}")
+
+================================================================================
+FILE: AI\agent.py
+================================================================================
+
+import ai
+from config.config import config
+
+class Agent:
+    def __init__(self, *, system_prompt=None, functions=None):
+        self.model = ai.GetApi()
+        self.messages = [
+            {
+                "role": "system",
+                "content": system_prompt or "You are the AI-agent."
+            }
+        ]
+        self.functions = list(functions or [])
+
+    def Message(self, content, *, system_message:str = None, single:bool = False, model:str = config.AI_MODEL):
+        message = {
+            "role": "user",
+            "content": f"<system>{system_message}</system>{content}" if system_message \
+                else content
+        }
+        payload = {
+            "model": model,
+            "messages": [*self.messages, message] if not single \
+                else [self.messages[0], message],
+            "function_call": "auto",
+            "functions": self.functions
+        }
+        response = self.model.Message(payload)
+        if not single:
+            self.messages.append(message)
+            self.messages.append(response.choices[0].message)
+        return response
+
+================================================================================
+FILE: AI\ai.py
+================================================================================
+
+from config.config import config
+
+def GetApi():
+    if config.AI_PLATFORM == "gigachat":
+        import AI.gigachat_api as gigachat_api
+        api = gigachat_api.GigaChatAPI()
+
+    return api
+
+================================================================================
+FILE: AI\gigachat_api.py
+================================================================================
+
+from gigachat import GigaChat
+from config.config import config
+
+class GigaChatAPI:
+   def __init__(self):
+      self.giga = GigaChat(
+         credentials=config.AI_API_KEY,
+         base_url="https://api.giga.chat/v1",
+         scope="GIGACHAT_API_PERS",
+         model=config.AI_MODEL,
+         verify_ssl_certs=False
+      )
+   def Message(self, payload):
+      response = self.giga.chat(payload)
+      return response
+
+
+================================================================================
+FILE: config\.env
+================================================================================
+
+DB_ENGINE=sqlite
+DB_NAME=reddit_parser
+
+AI_PLATFORM=gigachat
+AI_API_KEY=MDE5Yjk0N2ItZGFiZS03ZWU2LTllNGItYjU4OWVhMTAxZWRjOjM3YTI1NmI0LTA4MmYtNGY0MS04MzU0LThiNTdjZjRiOTk2ZQ==
+AI_MODEL=GigaChat-2
+
+SYSTEM_PROMPT_FILE_PATH=system_prompt.txt
+
+================================================================================
+FILE: config\config.py
+================================================================================
+
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+class Config:
+    def __init__(self):
+        # 1. Считываем окружение
+        self.DB_ENGINE = os.getenv("DB_ENGINE", "sqlite") # Для локального исследования рынка SQLite более чем хватит
+        self.DB_NAME = os.getenv("DB_NAME", "market_research.db")
+        
+        self.AI_PLATFORM = os.getenv("AI_PLATFORM")
+        self.AI_API_KEY = os.getenv("AI_API_KEY")
+        self.AI_MODEL = os.getenv("AI_MODEL")
+        self.SYSTEM_PROMPT_FILE_PATH = os.getenv("SYSTEM_PROMPT_FILE_PATH")
+
+        # 2. Жёсткий Fail Fast на старте
+        self._validate()
+
+    def _validate(self):
+        required_vars = {
+            "AI_API_KEY": self.AI_API_KEY,
+            "AI_MODEL": self.AI_MODEL,
+            "SYSTEM_PROMPT_FILE_PATH": self.SYSTEM_PROMPT_FILE_PATH,
+        }
+        
+        # Проверяем наличие ключей
+        for var_name, value in required_vars.items():
+            if not value:
+                raise ValueError(f"❌ Критическая ошибка: Конфиг не собран! Переменная {var_name} отсутствует в .env")
+
+        # Проверяем, что промпт реально лежит на диске
+        if not os.path.exists(self.SYSTEM_PROMPT_FILE_PATH):
+            raise FileNotFoundError(f"❌ Файл с системным промптом не найден: {self.SYSTEM_PROMPT_FILE_PATH}")
+
+config = Config()
+
+================================================================================
+FILE: parser\parser.py
+================================================================================
+
+from playwright.sync_api import sync_playwright
+from fake_useragent import UserAgent
+
+class Parser:
+    def __init__(self):
+        self.pw = None
+        self.browser = None
+        self.context = None
+        self.page = None
+
+    def __enter__(self):
+        self.pw = sync_playwright().start()
+        self.browser = self.pw.chromium.launch(headless=True)
+        self.context = self.browser.new_context(
+            user_agent=UserAgent(browsers=['chrome'], os=['windows', 'macos']).random,
+            viewport={"width":1920, "height":1080}
+        )
+        self.page = self.context.new_page()
+        return self
+
+    def close(self):
+        if self.page:
+            self.page.close()
+        if self.context:
+            self.context.close()
+        if self.browser:
+            self.browser.close()
+        if self.pw:
+            self.pw.stop()
+            
+    def __exit__(self, exc_type, exc, tb):
+        self.close()
+
+================================================================================
+FILE: parser\reddit_parser.py
+================================================================================
+
+from parser import Parser
+
+class RedditParser(Parser):
+    def __init__(self):
+        super().__init__()
+        
+
+    
+
+================================================================================
+FILE: reddit_archive_api\reddit_archive.py
+================================================================================
+
+import requests
+
+def RGetComments(
+    *, 
+    q=None, ids=None, size=None, sort="desc", 
+    sort_type="created_utc", author=None, 
+    subreddit=None, after=None, before=None, link_id=None,
+    **kwargs
+):
+    url = "https://api.pullpush.io/reddit/comment/search"
+    
+    raw_params = {
+        "q": q, "ids": ids, "size": size, "sort": sort, 
+        "sort_type": sort_type, "author": author, 
+        "subreddit": subreddit, "after": after, 
+        "before": before, "link_id": link_id
+    }
+    clean_params = {k: v for k, v in raw_params.items() if v is not None}
+    
+    try:
+        response = requests.get(url, params=clean_params, timeout=10)
+        response.raise_for_status() # Выбросит ошибку, если сервер PullPush упал
+        res_data = response.json()["data"]
+        return [
+            {
+                "body": data.get("body", ""),
+                "link_id": data["link_id"],
+                "id": data["id"],
+                "parent_id": data["parent_id"],
+                "subreddit": data["subreddit"],
+                "score": data["score"],
+                "author": data.get("author"),
+                "created_utc": data.get("created_utc")
+            }
+        for data in res_data]
+    except requests.exceptions.RequestException as e:
+        return {"error": f"Ошибка запроса: {e}", "data": []}
+
+def RGetSubmissions(
+    *,
+    ids=None, q=None, title=None, selftext=None, size=100, sort="desc",
+    sort_type="created_utc", author=None, subreddit=None, after=None,
+    before=None, score=None, num_comments=None, over_18=None,
+    is_video=None, locked=None, sticked=None, spoiler=None, contest_mode=None,
+    **kwargs  
+):
+    url = "https://api.pullpush.io/reddit/submission/search"
+
+    raw_params = {
+        "ids": ids, "q": q, "title": title, "selftext": selftext, "size": size,
+        "sort": sort, "sort_type": sort_type, "author": author,
+        "subreddit": subreddit, "after": after, "before": before,
+        "score": score, "num_comments": num_comments, "over_18": over_18,
+        "is_video": is_video, "locked": locked, "sticked": sticked,
+        "spoiler": spoiler, "contest_mode": contest_mode
+    }
+    clean_params = {k: v for k, v in raw_params.items() if v is not None}
+
+    try:
+        response = requests.get(url, params=clean_params, timeout=10)
+        response.raise_for_status()
+        res_data = response.json()["data"]
+        return [
+            {
+                "title": data.get("title", ""),
+                "selftext": data.get("selftext", ""),
+                "id": data["id"],
+                "author": data.get("author", ""),
+                "subreddit": data["subreddit"],
+                "score": data["score"],
+                "num_comments": data["num_comments"],
+                "url": data.get("url", ""),
+                "created_utc": data.get("created_utc")
+            }
+            for data in res_data
+        ]
+    except requests.exceptions.RequestException as e:
+        return {"error": f"Ошибка запроса: {e}", "data": []}
+
+def RGetThreadComments(*, link_id=None, **kwargs):
+    full_reached = False
+    comment_arr = []
+    last_created_utc = None
+    while not full_reached:
+        comments = RGetComments(link_id=link_id, size=100, sort="desc", before=last_created_utc)
+
+        if isinstance(comments, dict) and "error" in comments:
+            print(f"Прерывание сборки: {comments['error']}")
+            break
+        if not comments:
+            break
+
+        last_created_utc = comments[-1]["created_utc"]
+        comment_arr.extend(comments)
+        if len(comments) < 100:
+            full_reached = True
+
+    nodes = {x["id"]:x for x in  comment_arr}
+    tree = []
+    for comment in nodes.values():
+        parent_id = comment["parent_id"][3:]
+        parent_prefix = comment["parent_id"][:2]
+        if parent_prefix == "t3":
+            tree.append(comment)
+        else:
+            if parent_id in nodes:
+                if "children" in nodes[parent_id]:
+                    nodes[parent_id]["children"].append(comment)
+                else:
+                    nodes[parent_id]["children"] = [comment]
+    return tree
+
+r_get_comments_schema = {
+  "name": "RGetComments",
+  "description": "Поиск и получение комментариев Reddit через API PullPush на основе различных фильтров.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "diary_reasoning":{
+        "type": "string",
+        "description": "Текстовое размышление перед генерацией остальных аргументов. Будет записано в лог."
+      },
+      "q": {
+        "type": "string",
+        "description": "Поисковый запрос (текст комментария)."
+      },
+      "ids": {
+        "type": "string",
+        "description": "Идентификаторы комментариев (один ID или список через запятую)."
+      },
+      "size": {
+        "type": "integer",
+        "default": 100,
+        "description": "Количество возвращаемых комментариев (по умолчанию 100)."
+      },
+      "sort": {
+        "type": "string",
+        "enum": ["asc", "desc"],
+        "default": "desc",
+        "description": "Направление сортировки: 'asc' (по возрастанию) или 'desc' (по убыванию)."
+      },
+      "sort_type": {
+        "type": "string",
+        "enum": ["created_utc", "score"],
+        "default": "created_utc",
+        "description": "Поле, по которому выполняется сортировка."
+      },
+      "author": {
+        "type": "string",
+        "description": "Имя автора комментария (без префикса u/)."
+      },
+      "subreddit": {
+        "type": "string",
+        "description": "Название сабреддита (без префикса r/)."
+      },
+      "after": {
+        "type": "integer",
+        "description": "Временная метка UNIX (epoch timestamp в секундах) — получать комментарии **после** указанного времени."
+      },
+      "before": {
+        "type": "integer",
+        "description": "Временная метка UNIX (epoch timestamp в секундах) — получать комментарии **до** указанного времени."
+      },
+      "link_id": {
+        "type": "string",
+        "description": "ID поста (submission/link_id), к которому принадлежат комментарии (например, 't3_15xabc' или без префикса '15xabc')."
+      }
+    },
+    "required": ["diary_reasoning"]
+  }
+}
+
+r_get_submissions_schema = {
+  "name": "RGetSubmissions",
+  "description": "Поиск и получение постов Reddit через API PullPush на основе различных фильтров.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "diary_reasoning":{
+        "type": "string",
+        "description": "Текстовое размышление перед генерацией остальных аргументов. Будет записано в лог."
+      },
+      "q": {
+        "type": "string",
+        "description": "Поисковый запрос (текст поста или его содержимого)."
+      },
+      "ids": {
+        "type": "string",
+        "description": "Идентификаторы постов (один ID или список через запятую)."
+      },
+      "title": {
+        "type": "string",
+        "description": "Заголовок поста."
+      },
+      "selftext": {
+        "type": "string",
+        "description": "Текст поста (self post)."
+      },
+      "size": {
+        "type": "integer",
+        "default": 100,
+        "description": "Количество возвращаемых постов (по умолчанию 100)."
+      },
+      "sort": {
+        "type": "string",
+        "enum": ["asc", "desc"],
+        "default": "desc",
+        "description": "Направление сортировки: 'asc' или 'desc'."
+      },
+      "sort_type": {
+        "type": "string",
+        "enum": ["created_utc", "score"],
+        "default": "created_utc",
+        "description": "Поле, по которому выполняется сортировка."
+      },
+      "author": {
+        "type": "string",
+        "description": "Имя автора поста (без префикса u/)."
+      },
+      "subreddit": {
+        "type": "string",
+        "description": "Название сабреддита (без префикса r/)."
+      },
+      "after": {
+        "type": "integer",
+        "description": "Временная метка UNIX (epoch timestamp в секундах) — получать посты **после** указанного времени."
+      },
+      "before": {
+        "type": "integer",
+        "description": "Временная метка UNIX (epoch timestamp в секундах) — получать посты **до** указанного времени."
+      },
+      "score": {
+        "type": "integer",
+        "description": "Минимальный или точный score поста в зависимости от API."
+      },
+      "num_comments": {
+        "type": "integer",
+        "description": "Количество комментариев у поста."
+      },
+      "over_18": {
+        "type": "boolean",
+        "description": "Флаг NSFW."
+      },
+      "is_video": {
+        "type": "boolean",
+        "description": "Флаг видео-поста."
+      },
+      "locked": {
+        "type": "boolean",
+        "description": "Флаг заблокированного поста."
+      },
+      "sticked": {
+        "type": "boolean",
+        "description": "Флаг закреплённого поста."
+      },
+      "spoiler": {
+        "type": "boolean",
+        "description": "Флаг спойлера."
+      },
+      "contest_mode": {
+        "type": "boolean",
+        "description": "Флаг режима конкурса."
+      }
+    },
+    "required": ["diary_reasoning"]
+  }
+}
+
+r_get_thread_comments_schema = {
+  "name": "RGetThreadComments",
+  "description": "Полное получение всех комментариев ветки Reddit по link_id и сборка их в вложенное дерево.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "diary_reasoning":{
+        "type": "string",
+        "description": "Текстовое размышление перед генерацией остальных аргументов. Будет записано в лог."
+      },
+      "link_id": {
+        "type": "string",
+        "description": "ID поста или комментария, для которого нужно получить всю ветку комментариев (например, 't3_15xabc' или без префикса '15xabc')."
+      }
+    },
+    "required": ["diary_reasoning","link_id"]
+  }
+}
