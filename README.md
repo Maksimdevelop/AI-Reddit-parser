@@ -13,12 +13,3 @@
 * **Pydantic** (валидация данных и схемы для Function Calling)
 * **GigaChat API / Langchain-компоненты**
 * **Requests / Playwright**
-
-## 📂 Структура проекта
-├── AI/                     # Логика работы с LLM агентами и API (GigaChat)
-├── config/                 # Конфигурация и валидация переменных окружения (.env)
-├── parser/                 # Модули парсинга (Playwright)
-├── reddit_archive_api/     # Клиент для работы с API PullPush ( Reddit Search)
-├── main.py                 # Точка входа для демонстрации работы агента
-├── walker.py               # Утилита для рекурсивного обхода и сборки проекта
-└── requirements.txt        # Зависимости проекта
